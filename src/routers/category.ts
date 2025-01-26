@@ -11,7 +11,7 @@ const router = Router();
 
 router.post("/create", createCategory);
 router.get("/", getCategories);
-router.post("/update", updateCategory);
+router.put("/update", updateCategory);
 router.delete("/remove", removeCategory);
 router.get("/get-form", getForm);
 
