@@ -4,7 +4,7 @@ export const productForm = [
     value: "title",
     label: "Products",
     placeholder: "Enter product name",
-    type: "defautl",
+    type: "default",
     required: true,
     message: "Enter product name",
     default_value: "",
