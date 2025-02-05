@@ -12,6 +12,9 @@ const productSchema = new Schema({
     require: true,
     type: String,
   },
+  images: {
+    type: [String],
+  },
   expiryDate: {
     type: Date,
     default: Date.now(),
