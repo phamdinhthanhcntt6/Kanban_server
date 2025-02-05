@@ -154,10 +154,28 @@ const getForm = async (req: any, res: any) => {
   }
 };
 
+const getCategoryDetail = async (req: any, res: any) => {
+  const { id } = req.query;
+
+  const item = await CategoryModel.findById(id);
+
+  try {
+    res.status(200).json({
+      message: "",
+      data: item,
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 export {
   createCategory,
   getCategories,
   updateCategory,
   removeCategory,
   getForm,
+  getCategoryDetail,
 };

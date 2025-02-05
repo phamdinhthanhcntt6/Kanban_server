@@ -1,4 +1,3 @@
-import { productForm } from "../form/product";
 import ProductModel from "../models/ProductModel";
 
 const getProducts = async (req: any, res: any) => {
@@ -31,7 +30,7 @@ const createProduct = async (req: any, res: any) => {
     newProduct.save();
 
     res.status(200).json({
-      message: "Add new product successfully!",
+      message: "Create product successfully!",
       data: newProduct,
     });
   } catch (error: any) {
@@ -74,31 +73,4 @@ const removeProduct = async (req: any, res: any) => {
   }
 };
 
-const getProductForm = async (req: any, res: any) => {
-  try {
-    const form = {
-      title: "Product",
-      layout: "horizontal",
-      labecol: 6,
-      wrapperCol: 18,
-      formItem: productForm,
-    };
-
-    res.status(200).json({
-      message: "",
-      data: form,
-    });
-  } catch (error: any) {
-    res.status(404).json({
-      message: error.message,
-    });
-  }
-};
-
-export {
-  getProducts,
-  getProductForm,
-  createProduct,
-  updateProduct,
-  removeProduct,
-};
+export { getProducts, createProduct, updateProduct, removeProduct };
