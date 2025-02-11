@@ -27,7 +27,7 @@ const createProduct = async (req: any, res: any) => {
 
   try {
     const newProduct = new ProductModel(body);
-    newProduct.save();
+    await newProduct.save();
 
     res.status(200).json({
       message: "Create product successfully!",

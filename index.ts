@@ -9,6 +9,7 @@ import productRouter from "./src/routers/product";
 import storageRouter from "./src/routers/storage";
 import supplierRouter from "./src/routers/supplier";
 import userRouter from "./src/routers/user";
+import subProductRouter from "./src/routers/subProduct";
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use("/supplier", supplierRouter);
 app.use("/order", orderRouter);
 app.use("/product", productRouter);
 app.use("/category", categoryRouter);
+app.use("/sub-product", subProductRouter);
 
 const connectDB = async () => {
   try {
