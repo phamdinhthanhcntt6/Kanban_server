@@ -23,6 +23,7 @@ const getSuppliers = async (req: any, res: any) => {
 
 const createSupplier = async (req: any, res: any) => {
   const body = req.body;
+
   try {
     const newSupplier = new SupplierModel(body);
     newSupplier.save();
@@ -41,6 +42,7 @@ const createSupplier = async (req: any, res: any) => {
 const updateSupplier = async (req: any, res: any) => {
   const body = req.body;
   const { id } = req.query;
+
   try {
     await SupplierModel.findByIdAndUpdate(id, body);
 
@@ -57,6 +59,7 @@ const updateSupplier = async (req: any, res: any) => {
 
 const removeSupplier = async (req: any, res: any) => {
   const { id } = req.query;
+
   try {
     await SupplierModel.findByIdAndDelete(id);
 
@@ -94,6 +97,7 @@ const getForm = async (req: any, res: any) => {
 
 const getExportSupplier = async (req: any, res: any) => {
   const body = req.body;
+  
   const { start, end } = req.query;
 
   const filter: any = {};
@@ -131,6 +135,23 @@ const getExportSupplier = async (req: any, res: any) => {
   }
 };
 
+const getSupplierDetail = async (req: any, res: any) => {
+  const { id } = req.query;
+
+  const detail = await SupplierModel.findById(id);
+
+  try {
+    res.status(200).json({
+      message: "",
+      data: detail,
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 export {
   getSuppliers,
   createSupplier,
@@ -138,4 +159,5 @@ export {
   removeSupplier,
   getForm,
   getExportSupplier,
+  getSupplierDetail,
 };

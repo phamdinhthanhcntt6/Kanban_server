@@ -1,4 +1,5 @@
 import ProductModel from "../models/ProductModel";
+import SubProductModel from "../models/SubProductModel";
 
 const getProducts = async (req: any, res: any) => {
   const { page, pageSize } = req.query;
@@ -6,14 +7,31 @@ const getProducts = async (req: any, res: any) => {
   try {
     const skip = (page - 1) * pageSize;
 
-    const items = await ProductModel.find().skip(skip).limit(pageSize);
+    const products = await ProductModel.find().skip(skip).limit(pageSize);
 
-    const total = await ProductModel.countDocuments();
+    const items: any = [];
 
-    res.status(200).json({
-      message: "Products",
-      data: { total, items },
-    });
+    if (products.length > 0) {
+      products.forEach(async (item: any) => {
+        const children = await SubProductModel.find({ productId: item._id });
+
+        items.push({
+          ...item._doc,
+          subItems: children,
+        });
+
+        items.length === products.length &&
+          res.status(200).json({
+            message: "Products",
+            data: items,
+          });
+      });
+    } else {
+      res.status(200).json({
+        message: "Products",
+        data: [],
+      });
+    }
   } catch (error: any) {
     console.log(error);
     res.status(404).json({
