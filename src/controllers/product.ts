@@ -79,6 +79,12 @@ const removeProduct = async (req: any, res: any) => {
   const { id } = req.query;
 
   try {
+    const subItems = await SubProductModel.find({ productId: id });
+
+    if (subItems.length > 0) {
+      await handleRemoveSubProduct(subItems);
+    }
+
     await ProductModel.findByIdAndDelete(id);
     res.status(200).json({
       message: "Remove product successfully!",
@@ -89,6 +95,12 @@ const removeProduct = async (req: any, res: any) => {
       message: error.message,
     });
   }
+};
+
+const handleRemoveSubProduct = async (items: any[]) => {
+  items.forEach(
+    async (item) => await SubProductModel.findByIdAndDelete(item.id)
+  );
 };
 
 export { getProducts, createProduct, updateProduct, removeProduct };
