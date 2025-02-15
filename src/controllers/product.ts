@@ -64,6 +64,7 @@ const updateProduct = async (req: any, res: any) => {
 
   try {
     await ProductModel.findByIdAndUpdate(id, body);
+    
     res.status(200).json({
       message: "Update product successfully!",
       data: [],
@@ -103,4 +104,27 @@ const handleRemoveSubProduct = async (items: any[]) => {
   );
 };
 
-export { getProducts, createProduct, updateProduct, removeProduct };
+const getProductDetail = async (req: any, res: any) => {
+  const { id } = req.query;
+
+  const detail = await ProductModel.findById(id);
+
+  try {
+    res.status(200).json({
+      message: "",
+      data: detail,
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+export {
+  getProducts,
+  createProduct,
+  updateProduct,
+  removeProduct,
+  getProductDetail,
+};

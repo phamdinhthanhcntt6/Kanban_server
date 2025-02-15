@@ -13,7 +13,7 @@ const register = async (req: any, res: any) => {
     const user = await UserModel.findOne({ email });
 
     if (user) {
-      throw new Error(`Tài khoản đã tồn tại`);
+      throw new Error(`Account is existed`);
     }
 
     const salt = await bcrypt.genSalt(10);

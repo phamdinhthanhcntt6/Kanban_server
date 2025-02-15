@@ -27,6 +27,7 @@ const productSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  content: String,
 });
 
 const ProductModel = mongoose.model("products", productSchema);
