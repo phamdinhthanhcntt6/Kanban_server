@@ -64,10 +64,9 @@ const updateProduct = async (req: any, res: any) => {
 
   try {
     await ProductModel.findByIdAndUpdate(id, body);
-    
+
     res.status(200).json({
       message: "Update product successfully!",
-      data: [],
     });
   } catch (error: any) {
     res.status(404).json({
