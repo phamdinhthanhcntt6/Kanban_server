@@ -25,7 +25,7 @@ const getCategories = async (req: any, res: any) => {
 const createCategory = async (req: any, res: any) => {
   const body = req.body;
 
-  const { parentId, title, description, slug } = body;
+  const { parentId, slug } = body;
 
   try {
     const category = await CategoryModel.find({
@@ -52,7 +52,7 @@ const createCategory = async (req: any, res: any) => {
 
 const updateCategory = async (req: any, res: any) => {
   const body = req.body;
-  
+
   const { id } = req.query;
 
   try {

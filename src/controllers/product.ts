@@ -2,12 +2,22 @@ import ProductModel from "../models/ProductModel";
 import SubProductModel from "../models/SubProductModel";
 
 const getProducts = async (req: any, res: any) => {
-  const { page, pageSize } = req.query;
+  const { page, pageSize, title } = req.query;
+
+  const filter: any = {};
+
+  if (title) {
+    filter.slug = { $regex: title };
+  }
 
   try {
     const skip = (page - 1) * pageSize;
 
-    const products = await ProductModel.find().skip(skip).limit(pageSize);
+    const products = await ProductModel.find(filter).skip(skip).limit(pageSize);
+
+    const count = await ProductModel.find(filter);
+
+    const total = await ProductModel.countDocuments();
 
     const items: any = [];
 
@@ -23,7 +33,7 @@ const getProducts = async (req: any, res: any) => {
         items.length === products.length &&
           res.status(200).json({
             message: "Products",
-            data: items,
+            data: { items, total, count },
           });
       });
     } else {
@@ -121,9 +131,9 @@ const getProductDetail = async (req: any, res: any) => {
 };
 
 export {
-  getProducts,
   createProduct,
-  updateProduct,
-  removeProduct,
   getProductDetail,
+  getProducts,
+  removeProduct,
+  updateProduct,
 };
