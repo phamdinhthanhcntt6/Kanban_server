@@ -130,10 +130,80 @@ const getProductDetail = async (req: any, res: any) => {
   }
 };
 
+const filterProduct = async (req: any, res: any) => {
+  const body = req.body;
+
+  const { color, size, price, category } = body;
+
+  const filter: any = {};
+
+  if (color && color.length > 0) {
+    filter.color = { $all: color };
+  }
+
+  if (size) {
+    filter.size = { $eq: size };
+  }
+
+  if (price && Array.isArray(price) && price.length === 2) {
+    filter.price = {
+      $lte: price[1],
+      $gte: price[0],
+    };
+  }
+
+  try {
+    const subProduct = await SubProductModel.find(filter);
+
+    const productIds: string[] = [];
+
+    const products: any[] = [];
+
+    if (subProduct.length > 0) {
+      subProduct.forEach(
+        (item) =>
+          item.productId &&
+          !productIds.includes(item.productId) &&
+          productIds.push(item.productId)
+      );
+
+      await Promise.all(
+        productIds.map(async (id) => {
+          const product: any = await ProductModel.findById(id);
+          const children = subProduct.filter(
+            (element) => element.productId === id
+          );
+
+          const items = { ...product._doc, subItems: children };
+
+          products.push(items);
+        })
+      );
+
+      res.status(200).json({
+        data: {
+          items: products,
+          total: products.length,
+        },
+      });
+    } else {
+      res.status(200).json({
+        message: "",
+        data: [],
+      });
+    }
+  } catch (error: any) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 export {
   createProduct,
   getProductDetail,
   getProducts,
   removeProduct,
   updateProduct,
+  filterProduct,
 };

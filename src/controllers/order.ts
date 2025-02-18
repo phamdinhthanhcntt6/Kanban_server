@@ -132,10 +132,10 @@ const getExportOrder = async (req: any, res: any) => {
 };
 
 export {
-  getOrder,
   createOrder,
-  updateOrder,
-  removeOrder,
-  getForm,
   getExportOrder,
+  getForm,
+  getOrder,
+  removeOrder,
+  updateOrder,
 };

@@ -1,8 +1,8 @@
-import { getAccesstoken } from "./../utils/getAccessToken";
-import UserModel from "../models/UserModel";
-import dotenv from "dotenv";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+import UserModel from "../models/UserModel";
 import { generatorRandomText } from "../utils/generatorRandomText";
+import { getAccesstoken } from "./../utils/getAccessToken";
 
 dotenv.config();
 
@@ -160,4 +160,4 @@ const refreshToken = async (req: any, res: any) => {
   }
 };
 
-export { register, login, loginWithGoogle, refreshToken };
+export { login, loginWithGoogle, refreshToken, register };

@@ -1,5 +1,10 @@
 import SubProductModel from "../models/SubProductModel";
 
+interface SelectModel {
+  label: string;
+  value: string;
+}
+
 const createSubProduct = async (req: any, res: any) => {
   const body = req.body;
 
@@ -18,4 +23,35 @@ const createSubProduct = async (req: any, res: any) => {
   }
 };
 
-export { createSubProduct };
+const filterProduct = async (req: any, res: any) => {
+  try {
+    const datas = await SubProductModel.find();
+
+    const colors: string[] = [];
+    const sizes: SelectModel[] = [];
+    const prices: number[] = [];
+
+    if (datas.length > 0) {
+      datas.forEach((item) => {
+        item.color && !colors.includes(item.color) && colors.push(item.color);
+        item.size && sizes.push({ label: item.size, value: item.size });
+        prices.push(item.price);
+      });
+    }
+
+    res.status(200).json({
+      message: "fafa",
+      data: {
+        colors,
+        prices,
+        sizes,
+      },
+    });
+  } catch (error: any) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+};
+
+export { createSubProduct, filterProduct };

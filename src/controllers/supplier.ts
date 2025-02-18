@@ -97,7 +97,7 @@ const getForm = async (req: any, res: any) => {
 
 const getExportSupplier = async (req: any, res: any) => {
   const body = req.body;
-  
+
   const { start, end } = req.query;
 
   const filter: any = {};
@@ -153,11 +153,11 @@ const getSupplierDetail = async (req: any, res: any) => {
 };
 
 export {
-  getSuppliers,
   createSupplier,
-  updateSupplier,
-  removeSupplier,
-  getForm,
   getExportSupplier,
+  getForm,
   getSupplierDetail,
+  getSuppliers,
+  removeSupplier,
+  updateSupplier,
 };

@@ -176,8 +176,8 @@ const getCategoryDetail = async (req: any, res: any) => {
 export {
   createCategory,
   getCategories,
-  updateCategory,
-  removeCategory,
-  getForm,
   getCategoryDetail,
+  getForm,
+  removeCategory,
+  updateCategory,
 };
