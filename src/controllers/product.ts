@@ -127,11 +127,15 @@ const getProductDetail = async (req: any, res: any) => {
   const { id } = req.query;
 
   const detail = await ProductModel.findById(id);
+  const subProduct = await SubProductModel.find({ productId: id });
 
   try {
     res.status(200).json({
       message: "",
-      data: detail,
+      data: {
+        items: detail,
+        subProduct,
+      },
     });
   } catch (error: any) {
     res.status(400).json({

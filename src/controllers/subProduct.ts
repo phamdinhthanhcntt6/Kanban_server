@@ -54,4 +54,39 @@ const filterProduct = async (req: any, res: any) => {
   }
 };
 
-export { createSubProduct, filterProduct };
+const removeSubProduct = async (req: any, res: any) => {
+  const { id } = req.query;
+
+  try {
+    await SubProductModel.findByIdAndDelete(id);
+
+    res.status(200).json({
+      message: "Remove sub product successfully!",
+      data: [],
+    });
+  } catch (error: any) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+};
+
+const updateSubProduct = async (req: any, res: any) => {
+  const body = req.body;
+  const { id } = req.query;
+
+  try {
+    await SubProductModel.findByIdAndUpdate(id, body);
+
+    res.status(200).json({
+      message: "Update sub product successfully!",
+      data: [],
+    });
+  } catch (error: any) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+};
+
+export { createSubProduct, filterProduct, removeSubProduct, updateSubProduct };
