@@ -1,5 +1,7 @@
+import CategoryModel from "../models/CategoryModel";
 import ProductModel from "../models/ProductModel";
 import SubProductModel from "../models/SubProductModel";
+import SupplierModel from "../models/SupplierModel";
 
 const getProducts = async (req: any, res: any) => {
   const { page, pageSize, title } = req.query;
@@ -25,8 +27,16 @@ const getProducts = async (req: any, res: any) => {
       products.forEach(async (item: any) => {
         const children = await SubProductModel.find({ productId: item._id });
 
+        const categoriesName = await CategoryModel.find({
+          _id: { $in: item.categories },
+        });
+
+        const supplier = await SupplierModel.findById(item.supplier);
+
         items.push({
           ...item._doc,
+          categoriesName: categoriesName,
+          supplierName: supplier,
           subItems: children,
         });
 
@@ -201,9 +211,9 @@ const filterProduct = async (req: any, res: any) => {
 
 export {
   createProduct,
+  filterProduct,
   getProductDetail,
   getProducts,
   removeProduct,
   updateProduct,
-  filterProduct,
 };
