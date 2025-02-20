@@ -29,6 +29,7 @@ const productSchema = new Schema({
     default: Date.now(),
   },
   content: String,
+  rating: Number,
 });
 
 const ProductModel = mongoose.model("products", productSchema);
