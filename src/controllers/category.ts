@@ -7,13 +7,11 @@ const getCategories = async (req: any, res: any) => {
 
   try {
     const skip = (page - 1) * pageSize;
-    const items = await CategoryModel.find().skip(skip).limit(pageSize);
-
-    const total = await CategoryModel.countDocuments();
+    const category = await CategoryModel.find().skip(skip).limit(pageSize);
 
     res.status(200).json({
       message: "Categories",
-      data: { total, items },
+      data: category,
     });
   } catch (error: any) {
     res.status(404).json({
