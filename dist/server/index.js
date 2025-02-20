@@ -52,7 +52,7 @@ const user_1 = __importDefault(require("./src/routers/user"));
 const subProduct_1 = __importDefault(require("./src/routers/subProduct"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const PORT = 3001;
+const PORT = 5000;
 const dbURL = `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@thanh236.zg7id.mongodb.net/?retryWrites=true&w=majority&appName=Thanh236`;
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({}));
