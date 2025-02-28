@@ -10,7 +10,7 @@ import storageRouter from "./src/routers/storage";
 import supplierRouter from "./src/routers/supplier";
 import userRouter from "./src/routers/user";
 import subProductRouter from "./src/routers/subProduct";
-import customerRouter from "./src/routers/client";
+import customerRouter from "./src/routers/customer";
 
 dotenv.config();
 

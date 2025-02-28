@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const ClientSchema = new Schema({
+const CustomerSchema = new Schema({
   firstname: {
     type: String,
     required: true,
@@ -32,5 +32,5 @@ const ClientSchema = new Schema({
   },
 });
 
-const ClientModel = mongoose.model("clients", ClientSchema);
-export default ClientModel;
+const CustomerModel = mongoose.model("customers", CustomerSchema);
+export default CustomerModel;
