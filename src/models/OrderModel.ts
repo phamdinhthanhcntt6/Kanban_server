@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const OrderScheme = new Schema({
+const OrderSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -34,5 +34,5 @@ const OrderScheme = new Schema({
   },
 });
 
-const OrderModel = mongoose.model("orders", OrderScheme);
+const OrderModel = mongoose.model("orders", OrderSchema);
 export default OrderModel;

@@ -223,8 +223,6 @@ const resetPassword = async (req: any, res: any) => {
   }
 };
 
-export default resetPassword;
-
 const getProducts = async (req: any, res: any) => {
   const { page, pageSize, title } = req.query;
 
@@ -283,11 +281,8 @@ const getProducts = async (req: any, res: any) => {
 };
 
 const getCategories = async (req: any, res: any) => {
-  const { pageSize, page } = req.query;
-
   try {
-    const skip = (page - 1) * pageSize;
-    const category = await CategoryModel.find().skip(skip).limit(pageSize);
+    const category = await CategoryModel.find();
 
     res.status(200).json({
       message: "Categories",

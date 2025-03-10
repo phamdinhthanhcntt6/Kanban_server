@@ -2,15 +2,17 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import { verifyToken } from "./../client/src/middleware/verifyToken";
+
 import categoryRouter from "./src/routers/category";
+import customerRouter from "./src/routers/customer";
 import orderRouter from "./src/routers/order";
 import productRouter from "./src/routers/product";
+import promotionRouter from "./src/routers/promotion";
 import storageRouter from "./src/routers/storage";
+import subProductRouter from "./src/routers/subProduct";
 import supplierRouter from "./src/routers/supplier";
 import userRouter from "./src/routers/user";
-import subProductRouter from "./src/routers/subProduct";
-import customerRouter from "./src/routers/customer";
+import { verifyToken } from "./src/middleware/verifyToken";
 
 dotenv.config();
 
@@ -27,6 +29,7 @@ app.use("/auth", userRouter);
 app.use("/customer", customerRouter);
 
 app.use(verifyToken);
+app.use("/promotion", promotionRouter);
 app.use("/storage", storageRouter);
 app.use("/supplier", supplierRouter);
 app.use("/order", orderRouter);

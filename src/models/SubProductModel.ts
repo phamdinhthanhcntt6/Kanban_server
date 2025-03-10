@@ -13,6 +13,7 @@ const subProductSchema = new Schema(
       required: true,
       default: 0,
     },
+    discount: Number,
     quantity: {
       type: Number,
       required: true,

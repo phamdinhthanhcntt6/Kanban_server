@@ -29,7 +29,7 @@ const createSupplier = async (req: any, res: any) => {
     newSupplier.save();
 
     res.status(200).json({
-      message: "Add new supplier successfully!",
+      message: "Create new supplier successfully!",
       data: newSupplier,
     });
   } catch (error: any) {
@@ -65,7 +65,6 @@ const removeSupplier = async (req: any, res: any) => {
 
     res.status(200).json({
       message: "Remove supplier successfully!",
-      data: [],
     });
   } catch (error: any) {
     res.status(404).json({
