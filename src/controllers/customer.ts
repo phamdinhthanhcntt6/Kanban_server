@@ -1,12 +1,13 @@
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
+import BillProductModel from "../models/BillProductModel";
+import CategoryModel from "../models/CategoryModel";
 import CustomerModel from "../models/CustomerModel";
-import { generatorRandomText } from "../utils/generatorRandomText";
-import { getAccesstoken } from "../utils/getAccessToken";
 import ProductModel from "../models/ProductModel";
 import SubProductModel from "../models/SubProductModel";
-import CategoryModel from "../models/CategoryModel";
 import SupplierModel from "../models/SupplierModel";
+import { generatorRandomText } from "../utils/generatorRandomText";
+import { getAccesstoken } from "../utils/getAccessToken";
 
 dotenv.config();
 
@@ -295,13 +296,74 @@ const getCategories = async (req: any, res: any) => {
   }
 };
 
+const getRangePrice = async (id: string) => {
+  const subProduct = await SubProductModel.find({ productId: id });
+
+  const range = subProduct.map((item) => item.price);
+
+  const min = Math.min(...range);
+
+  const max = Math.max(...range);
+
+  return [min, max];
+};
+
+const getBestSellerProduct = async (req: any, res: any) => {
+  try {
+    const product = await BillProductModel.find();
+
+    if (product.length > 0) {
+    } else {
+      const items = await ProductModel.find().limit(8);
+
+      const data: any = [];
+
+      items.forEach(async (item: any) => {
+        data.push({ ...item._doc, price: await getRangePrice(item._id) });
+        data.length === items.length &&
+          res.status(200).json({
+            data: data,
+          });
+      });
+    }
+  } catch (error: any) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const getProductDetail = async (req: any, res: any) => {
+  const { id } = req.query;
+
+  const detail = await ProductModel.findById(id);
+
+  const subProduct = await SubProductModel.find({ productId: id });
+
+  try {
+    res.status(200).json({
+      message: "",
+      data: {
+        items: detail,
+        subProduct,
+      },
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 export {
+  checkCustomer,
+  getBestSellerProduct,
+  getCategories,
+  getProducts,
   login,
   loginWithGoogle,
   refreshToken,
   register,
-  getProducts,
-  getCategories,
-  checkCustomer,
   resetPassword,
+  getProductDetail,
 };

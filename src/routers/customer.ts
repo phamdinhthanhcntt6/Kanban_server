@@ -1,12 +1,14 @@
 import { Router } from "express";
 import {
+  checkCustomer,
+  getBestSellerProduct,
   getCategories,
+  getProductDetail,
   getProducts,
   login,
   loginWithGoogle,
   refreshToken,
   register,
-  checkCustomer,
   resetPassword,
 } from "../controllers/customer";
 
@@ -20,5 +22,7 @@ router.get("/get-products", getProducts);
 router.get("/get-categories", getCategories);
 router.post("/check-account", checkCustomer);
 router.put("/reset-password", resetPassword);
+router.get("/best-seller", getBestSellerProduct);
+router.get("/product/detail", getProductDetail);
 
 export default router;

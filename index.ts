@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 
+import { verifyToken } from "./src/middleware/verifyToken";
+import cartRouter from "./src/routers/cart";
 import categoryRouter from "./src/routers/category";
 import customerRouter from "./src/routers/customer";
 import orderRouter from "./src/routers/order";
@@ -12,7 +14,6 @@ import storageRouter from "./src/routers/storage";
 import subProductRouter from "./src/routers/subProduct";
 import supplierRouter from "./src/routers/supplier";
 import userRouter from "./src/routers/user";
-import { verifyToken } from "./src/middleware/verifyToken";
 
 dotenv.config();
 
@@ -27,15 +28,16 @@ app.use(cors({}));
 
 app.use("/auth", userRouter);
 app.use("/customer", customerRouter);
+app.use("/promotion", promotionRouter);
 
 app.use(verifyToken);
-app.use("/promotion", promotionRouter);
 app.use("/storage", storageRouter);
 app.use("/supplier", supplierRouter);
 app.use("/order", orderRouter);
 app.use("/product", productRouter);
 app.use("/category", categoryRouter);
 app.use("/sub-product", subProductRouter);
+app.use("/cart", cartRouter);
 
 const connectDB = async () => {
   try {
