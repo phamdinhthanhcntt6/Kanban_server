@@ -62,8 +62,6 @@ const updateCountProductInCart = async (req: any, res: any) => {
   const { id } = req.query;
 
   try {
-    console.log(id);
-    console.log(body);
     await CartModel.findByIdAndUpdate(id, body);
 
     res.status(200).json({

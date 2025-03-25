@@ -70,4 +70,29 @@ const updatePromotion = async (req: any, res: any) => {
   }
 };
 
-export { createPromotion, getPromotions, removePromotion, updatePromotion };
+const checkPromotion = async (req: any, res: any) => {
+  try {
+    const { code } = req.query;
+    const promotion = await PromotionModel.findOne({ code });
+
+    if (!promotion) {
+      throw new Error("Code is invalid!");
+    } else {
+      res.status(200).json({
+        data: promotion,
+      });
+    }
+  } catch (error: any) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+};
+
+export {
+  createPromotion,
+  getPromotions,
+  removePromotion,
+  updatePromotion,
+  checkPromotion,
+};

@@ -62,7 +62,6 @@ const removeSubProduct = async (req: any, res: any) => {
 
     res.status(200).json({
       message: "Remove sub product successfully!",
-      data: [],
     });
   } catch (error: any) {
     res.status(404).json({
@@ -80,7 +79,6 @@ const updateSubProduct = async (req: any, res: any) => {
 
     res.status(200).json({
       message: "Update sub product successfully!",
-      data: [],
     });
   } catch (error: any) {
     res.status(404).json({

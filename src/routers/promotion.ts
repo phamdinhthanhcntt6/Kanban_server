@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  checkPromotion,
   createPromotion,
   getPromotions,
   removePromotion,
@@ -10,6 +11,7 @@ import { verifyToken } from "../middleware/verifyToken";
 const router = Router();
 
 router.get("/", getPromotions);
+router.get("/check", checkPromotion);
 
 router.use(verifyToken);
 

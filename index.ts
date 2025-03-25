@@ -14,6 +14,7 @@ import storageRouter from "./src/routers/storage";
 import subProductRouter from "./src/routers/subProduct";
 import supplierRouter from "./src/routers/supplier";
 import userRouter from "./src/routers/user";
+import addressRouter from "./src/routers/address";
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use(cors({}));
 app.use("/auth", userRouter);
 app.use("/customer", customerRouter);
 app.use("/promotion", promotionRouter);
+app.use("/address", addressRouter);
 
 app.use(verifyToken);
 app.use("/storage", storageRouter);
