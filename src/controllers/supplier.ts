@@ -141,7 +141,6 @@ const getSupplierDetail = async (req: any, res: any) => {
 
   try {
     res.status(200).json({
-      message: "",
       data: detail,
     });
   } catch (error: any) {

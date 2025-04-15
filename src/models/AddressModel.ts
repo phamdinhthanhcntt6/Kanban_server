@@ -6,7 +6,10 @@ const AddressSchema = new Schema({
     required: true,
   },
   name: String,
-  address: String,
+  address: {
+    type: String,
+    required: true,
+  },
   pinCode: String,
   phone: String,
   isDefault: {

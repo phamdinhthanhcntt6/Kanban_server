@@ -95,10 +95,27 @@ const updateAddress = async (req: any, res: any) => {
   }
 };
 
+const getDefaultAddressDetail = async (req: any, res: any) => {
+  const { id } = req.query;
+
+  try {
+    const address = await AddressModel.findById(id);
+
+    res.status(200).json({
+      data: address,
+    });
+  } catch (error: any) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+};
+
 export {
   createAddress,
   getAddressesByUid,
   setDefaultAddress,
   removeAddress,
   updateAddress,
+  getDefaultAddressDetail,
 };

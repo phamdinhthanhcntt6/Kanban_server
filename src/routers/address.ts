@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createAddress,
   getAddressesByUid,
+  getDefaultAddressDetail,
   removeAddress,
   setDefaultAddress,
   updateAddress,
@@ -15,11 +16,9 @@ router.get("/", getAddressesByUid);
 router.use(verifyToken);
 
 router.post("/create", createAddress);
-
 router.post("/set-default", setDefaultAddress);
-
 router.delete("/remove", removeAddress);
-
 router.put("/update", updateAddress);
+router.get("/detail", getDefaultAddressDetail);
 
 export default router;

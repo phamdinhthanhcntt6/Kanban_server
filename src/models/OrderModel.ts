@@ -1,25 +1,23 @@
 import mongoose, { Schema } from "mongoose";
 
 const OrderSchema = new Schema({
+  products: {
+    type: [Object],
+    required: true,
+  },
   name: {
     type: String,
     required: true,
   },
-  slug: String,
-  product: String,
-  categories: {
-    type: [String],
-  },
-  price: Number,
-  email: String,
-  active: Number,
-  contact: String,
-  isTaking: {
+  total: {
     type: Number,
-    default: 0,
-    enum: [0, 1],
+    required: true,
   },
-  photoUrl: String,
+  email: {
+    type: String,
+    required: true,
+  },
+  contact: String,
   createAt: {
     type: Date,
     default: Date.now(),
@@ -28,9 +26,17 @@ const OrderSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
-  isDeleted: {
-    type: Boolean,
-    default: false,
+  payment: {
+    type: String,
+    default: "cod",
+  },
+  status: {
+    type: String,
+    default: "pending",
+  },
+  address: {
+    type: String,
+    required: true,
   },
 });
 

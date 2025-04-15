@@ -74,9 +74,28 @@ const updateCountProductInCart = async (req: any, res: any) => {
   }
 };
 
+const clearCart = async (req: any, res: any) => {
+  const { uid } = req.query;
+
+  try {
+    await CartModel.deleteMany({
+      createdBy: uid,
+    });
+
+    res.status(200).json({
+      message: "Clear cart successfully!",
+    });
+  } catch (error: any) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+};
+
 export {
   addProductInCart,
   getProductInCart,
   removeProductInCart,
   updateCountProductInCart,
+  clearCart,
 };

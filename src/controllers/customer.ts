@@ -340,12 +340,17 @@ const getProductDetail = async (req: any, res: any) => {
 
   const subProduct = await SubProductModel.find({ productId: id });
 
+  const relatedProducts = await ProductModel.find({
+    categories: { $in: detail?.categories },
+  }).limit(4);
+
   try {
     res.status(200).json({
       message: "",
       data: {
         items: detail,
         subProduct,
+        relatedProducts,
       },
     });
   } catch (error: any) {
