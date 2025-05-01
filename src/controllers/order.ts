@@ -1,4 +1,3 @@
-import { orderForm } from "../form/order";
 import OrderModel from "../models/OrderModel";
 
 const getOrder = async (req: any, res: any) => {
@@ -71,27 +70,6 @@ const removeOrder = async (req: any, res: any) => {
   }
 };
 
-const getForm = async (req: any, res: any) => {
-  try {
-    const form = {
-      title: "Order",
-      layout: "horizontal",
-      labelCol: 6,
-      wrapperCol: 18,
-      formItem: orderForm,
-    };
-
-    res.status(200).json({
-      message: "",
-      data: form,
-    });
-  } catch (error: any) {
-    res.status(400).json({
-      message: error.message,
-    });
-  }
-};
-
 const getExportOrder = async (req: any, res: any) => {
   const body = req.body;
   const { start, end } = req.query;
@@ -131,11 +109,27 @@ const getExportOrder = async (req: any, res: any) => {
   }
 };
 
+const getOrderDetail = async (req: any, res: any) => {
+  const { id } = req.query;
+
+  const detail = await OrderModel.findById(id);
+
+  try {
+    res.status(200).json({
+      data: detail,
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 export {
   createOrder,
   getExportOrder,
-  getForm,
   getOrder,
   removeOrder,
   updateOrder,
+  getOrderDetail,
 };

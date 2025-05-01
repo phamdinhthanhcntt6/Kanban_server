@@ -2,8 +2,8 @@ import { Router } from "express";
 import {
   createOrder,
   getExportOrder,
-  getForm,
   getOrder,
+  getOrderDetail,
   removeOrder,
   updateOrder,
 } from "../controllers/order";
@@ -15,6 +15,6 @@ router.post("/get-export-data", getExportOrder);
 router.post("/create", createOrder);
 router.put("/update", updateOrder);
 router.delete("/remove", removeOrder);
-router.get("/get-form", getForm);
+router.get("/detail", getOrderDetail);
 
 export default router;
