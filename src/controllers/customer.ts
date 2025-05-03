@@ -360,6 +360,23 @@ const getProductDetail = async (req: any, res: any) => {
   }
 };
 
+const updateCustomer = async (req: any, res: any) => {
+  const { id } = req.query;
+  const body = req.body;
+
+  try {
+    await CustomerModel.findByIdAndUpdate(id, body);
+
+    res.status(200).json({
+      message: "Update customer successfully!",
+    });
+  } catch (error: any) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+};
+
 export {
   checkCustomer,
   getBestSellerProduct,
@@ -371,4 +388,5 @@ export {
   register,
   resetPassword,
   getProductDetail,
+  updateCustomer,
 };

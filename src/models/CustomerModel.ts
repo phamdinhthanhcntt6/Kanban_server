@@ -30,6 +30,7 @@ const CustomerSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  contact: String,
 });
 
 const CustomerModel = mongoose.model("customers", CustomerSchema);

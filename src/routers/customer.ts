@@ -10,6 +10,7 @@ import {
   refreshToken,
   register,
   resetPassword,
+  updateCustomer,
 } from "../controllers/customer";
 
 const router = Router();
@@ -24,5 +25,6 @@ router.post("/check-account", checkCustomer);
 router.put("/reset-password", resetPassword);
 router.get("/best-seller", getBestSellerProduct);
 router.get("/product/detail", getProductDetail);
+router.put("/update", updateCustomer);
 
 export default router;

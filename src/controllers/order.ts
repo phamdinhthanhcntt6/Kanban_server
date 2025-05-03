@@ -1,6 +1,6 @@
 import OrderModel from "../models/OrderModel";
 
-const getOrder = async (req: any, res: any) => {
+const getOrders = async (req: any, res: any) => {
   const { pageSize, page } = req.query;
 
   try {
@@ -70,45 +70,6 @@ const removeOrder = async (req: any, res: any) => {
   }
 };
 
-const getExportOrder = async (req: any, res: any) => {
-  const body = req.body;
-  const { start, end } = req.query;
-
-  const filter: any = {};
-
-  if (start && end) {
-    filter.createAt = {
-      $lte: end,
-      $gte: start,
-    };
-  }
-
-  try {
-    const items = await OrderModel.find(filter);
-    const data: any = [];
-
-    if (items.length > 0) {
-      items.forEach((item: any) => {
-        const values: any = {};
-
-        body.forEach((key: string) => {
-          values[`${key}`] = `${item._doc[`${key}`] ?? ""}`;
-        });
-        data.push(values);
-      });
-    }
-
-    res.status(200).json({
-      message: "Order",
-      data: data,
-    });
-  } catch (error: any) {
-    res.status(404).json({
-      message: error.message,
-    });
-  }
-};
-
 const getOrderDetail = async (req: any, res: any) => {
   const { id } = req.query;
 
@@ -125,11 +86,46 @@ const getOrderDetail = async (req: any, res: any) => {
   }
 };
 
+const getOrderByUid = async (req: any, res: any) => {
+  const { createdBy, search, status } = req.query;
+
+  try {
+    const query: any = {};
+
+    if (createdBy) {
+      query.createdBy = createdBy;
+    }
+
+    if (search) {
+      const regex = { $regex: search, $options: "i" };
+
+      query.$or = [{ name: regex }, { "products.title": regex }];
+    }
+
+    if (status) {
+      query.status = status;
+    } else {
+      query.status = { $in: ["pending", "complete"] };
+    }
+
+    const orders = await OrderModel.find(query);
+
+    res.status(200).json({
+      message: "Get orders successfully!",
+      data: orders,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 export {
   createOrder,
-  getExportOrder,
-  getOrder,
+  getOrders,
   removeOrder,
   updateOrder,
   getOrderDetail,
+  getOrderByUid,
 };
