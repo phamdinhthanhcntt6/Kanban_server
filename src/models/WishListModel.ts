@@ -8,6 +8,7 @@ const wishListSchema = new Schema({
   productId: {
     type: String,
     require: true,
+    ref: "products",
   },
 });
 

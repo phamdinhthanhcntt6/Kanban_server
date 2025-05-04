@@ -1,14 +1,22 @@
 import { Router } from "express";
-// import {
-//   addProductInWishList,
-//   getProductInWishList,
-//   removeProductInWishList,
-// } from "../controllers/wishlist";
+import { verifyToken } from "../middleware/verifyToken";
+import {
+  addProductInWidshList,
+  checkProductInWishlist,
+  getWishListByUid,
+  removeProductInWishlist,
+} from "../controllers/wishlist";
 
 const router = Router();
 
-// router.get("/", getProductInWishList);
-// router.post("/create", addProductInWishList);
-// router.delete("/remove", removeProductInWishList);
+router.use(verifyToken);
+
+router.post("/add", addProductInWidshList);
+
+router.get("/check", checkProductInWishlist);
+
+router.delete("/remove", removeProductInWishlist);
+
+router.get("/get-by-uid", getWishListByUid);
 
 export default router;
